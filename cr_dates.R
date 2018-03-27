@@ -24,5 +24,22 @@ cr_date_parser <- function(doi) {
 #' Loop over offsetting DOIs 
 cr_oapc <- purrr::map(oapc$doi, purrr::safely(cr_date_parser)) 
 cr_oapc_df <- purrr::map_df(cr_oapc, "result")
+#' backup
 readr::write_csv(cr_oapc_df, "cr_dates.csv")
 readr::write_csv(oapc, "oapc_data.csv")
+#' 
+oapc <- readr::read_csv("oapc_data.csv")
+cr_dates <- readr::read_csv("cr_dates.csv")
+oapc %>% 
+  select(doi, period, institution) %>% 
+  inner_join(cr_dates) %>% 
+  mutate_at(vars(published_print:issued), funs(lubridate::parse_date_time(., c('y', 'ymd', 'ym')))) %>%
+  mutate_at(vars(created:issued), funs(lubridate::year(.))) %>%
+  mutate(issued_period_diff = issued - period,
+         created_issued_diff = created - period,
+         published_print_issued = published_print - period,
+         published_online_issued = published_online - period) %>%
+  #' backup 
+  readr::write_csv("cr_dates_apc_yearly_diffs.csv")
+
+ 
