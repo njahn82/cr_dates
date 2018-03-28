@@ -23,10 +23,10 @@ oapc_df %>%
        y = "Number of open access articles",
        title = "Differences between dates of Springer Compact and Crossref reporting",
        caption = "Source: Open APC Offsetting dataset and Crossref") +
-  theme_minimal(base_family="Arial Narrow")
+  theme_minimal(base_family="Arial Narrow", base_size = 14)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+<img src="figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="720" />
 
 Proportion of articles with no time difference (year)
 

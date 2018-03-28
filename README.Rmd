@@ -17,7 +17,7 @@ Test whether year of offsetting reporting to the [Open APC Initiative](https://g
 
 Differences between Springer Compact reporting and Crossref dates (by year)
 
-```{r}
+```{r, fig.width=10, fig.height=7, fig.retina=2}
 library(tidyverse)
 #' analysis
 oapc_df <- readr::read_csv("cr_dates_apc_yearly_diffs.csv")
@@ -30,7 +30,7 @@ oapc_df %>%
        y = "Number of open access articles",
        title = "Differences between dates of Springer Compact and Crossref reporting",
        caption = "Source: Open APC Offsetting dataset and Crossref") +
-  theme_minimal(base_family="Arial Narrow")
+  theme_minimal(base_family="Arial Narrow", base_size = 14)
 ```
 
 Proportion of articles with no time difference (year)
