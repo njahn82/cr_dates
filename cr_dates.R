@@ -15,9 +15,13 @@ cr_date_parser <- function(doi) {
     jsonlite::fromJSON()
   result <- req$message
   data_frame(doi = result$DOI, 
+             # doi created
              created = result$created$`date-time`, 
+             # print publication date
              published_print = paste(result$`published-print`$`date-parts`, collapse = "-"),
+             # online publication date
              published_online = paste(result$`published-online`$`date-parts`, collapse = "-"),
+             # issued date (earliest known publication date)
              issued = paste(result$issued$`date-parts`, collapse = "-")
   )
 }
@@ -35,11 +39,9 @@ oapc %>%
   inner_join(cr_dates) %>% 
   mutate_at(vars(published_print:issued), funs(lubridate::parse_date_time(., c('y', 'ymd', 'ym')))) %>%
   mutate_at(vars(created:issued), funs(lubridate::year(.))) %>%
-  mutate(issued_period_diff = issued - period,
-         created_issued_diff = created - period,
-         published_print_issued = published_print - period,
-         published_online_issued = published_online - period) %>%
+  mutate(`Earliest publication year` = issued - period,
+         `Year DOI created` = created - period,
+         `Print publication year` = published_print - period,
+         `Online publication year` = published_online - period) %>%
   #' backup 
   readr::write_csv("cr_dates_apc_yearly_diffs.csv")
-
- 
