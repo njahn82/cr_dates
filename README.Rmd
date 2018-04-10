@@ -49,7 +49,7 @@ oapc_df %>%
 
 All steps to fetch the metadata using R are available in [`cr_dates.R`](cr_dates.R). 
 
-There are three datasets: [`oapc_data-csv`](oapc_data-csv) is the snapshot of the APC data used.
+There are three datasets: [`oapc_data.csv`](oapc_data.csv) is the snapshot of the APC data used.
 
 ```{r}
 readr::read_csv("oapc_data.csv")
